@@ -5,8 +5,8 @@ this program checks for incompatible symbols(extra exported symbols and incompat
 Discussion at https://github.com/gotify/server/issues/51#issuecomment-452954279
 
 Sample usage:
-$ go run github.com/gotify/plugin-api/cmd/symbol-check > export_ref_do_not_edit.json # take a snapshot of the current export in every major release
-$ go run github.com/gotify/plugin-api/cmd/symbol-check -c export_ref_do_not_edit.json # compare current version for incompatible definitions
+$ go run github.com/eternal-flame-AD/go-exports > export_ref_do_not_edit.json # take a snapshot of the current export in every major release
+$ go run github.com/eternal-flame-AD/go-exports -c export_ref_do_not_edit.json # compare current version for incompatible definitions
 */
 package main
 
