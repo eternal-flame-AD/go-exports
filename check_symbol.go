@@ -344,6 +344,15 @@ func formatType(spec *ast.TypeSpec, basePos token.Pos) *Symbol {
 			res.Pos = spec.Pos() - basePos
 		}
 		return res
+	case *ast.SelectorExpr:
+		res := &Symbol{
+			Label:      fmt.Sprint(specType.X) + "." + specType.Sel.Name,
+			SymbolType: "selector",
+		}
+		if basePos != 0 {
+			res.Pos = spec.Pos() - basePos
+		}
+		return res
 	default:
 		panic("unknown type")
 	}
