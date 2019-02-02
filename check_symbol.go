@@ -344,6 +344,12 @@ func formatType(spec *ast.TypeSpec, basePos token.Pos) *Symbol {
 			res.Pos = spec.Pos() - basePos
 		}
 		return res
+	case *ast.MapType:
+		res := &Symbol{
+			Label:      fmt.Sprintf("map[%s]%s", specType.Key, specType.Value),
+			SymbolType: "Map",
+		}
+		return res
 	case *ast.SelectorExpr:
 		res := &Symbol{
 			Label:      fmt.Sprint(specType.X) + "." + specType.Sel.Name,
@@ -351,6 +357,18 @@ func formatType(spec *ast.TypeSpec, basePos token.Pos) *Symbol {
 		}
 		if basePos != 0 {
 			res.Pos = spec.Pos() - basePos
+		}
+		return res
+	case *ast.StarExpr:
+		res := &Symbol{
+			Label:      "*",
+			SymbolType: "star",
+		}
+		switch x := specType.X.(type) {
+		case *ast.Ident:
+			res.Label += x.Name
+		case *ast.SelectorExpr:
+			res.Label += fmt.Sprintf("%s.%s", x.X, x.Sel.Name)
 		}
 		return res
 	default:
